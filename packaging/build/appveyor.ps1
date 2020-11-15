@@ -14,16 +14,6 @@ Function Invoke-Exe([scriptblock]$sb) {
 }
 
 Function Bootstrap() {
-<#
-    # ensure python 3.9 prerelease is present (current Appveyor VS2015 image doesn't include it)
-    If(-not $(Test-Path C:\Python39)) {
-        Invoke-Exe { choco.exe install python3 --version=3.9.0-a1 --forcex86 --force --params="/InstallDir:C:\Python39" --no-progress }
-    }
-
-    If(-not $(Test-Path C:\Python39-x64)) {
-        Invoke-Exe { choco.exe install python3 --version=3.9.0-a1 --force --params="/InstallDir:C:\Python39-x64" --no-progress }
-    }
-#>
     Write-Output "patching Windows SDK bits for distutils"
 
     # patch 7.0/7.1 vcvars SDK bits up to work with distutils query
@@ -49,9 +39,9 @@ Function Bootstrap() {
     }
 }
 
-Function Build-Wheel($python_path) {
+Function Build-Wheel() {
 
-    #$python_path = Join-Path C:\ $env:PYTHON_VER
+    $python_path = Join-Path C:\ $env:PYTHON_VER
     $python = Join-Path $python_path python.exe
 
     Write-Output "building pyyaml wheel for $python_path"
@@ -115,24 +105,5 @@ Function Upload-Artifacts() {
 }
 
 Bootstrap
-
-$pythons = @(
-"C:\Python27"
-"C:\Python27-x64"
-"C:\Python35"
-"C:\Python35-x64"
-"C:\Python36"
-"C:\Python36-x64"
-"C:\Python37"
-"C:\Python37-x64"
-"C:\Python38"
-"C:\Python38-x64"
-)
-
-#$pythons = @("C:\$($env:PYTHON_VER)")
-
-foreach($python in $pythons) {
-    Build-Wheel $python
-}
-
+Build-Wheel
 Upload-Artifacts
