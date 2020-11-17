@@ -4,6 +4,7 @@ version: '{build}'
 #cache:
 #- 'C:\Python38\'
 #- 'C:\Python38-x64'
+build: Script
 
 environment:
   libyaml_repo_url: https://github.com/yaml/libyaml.git
@@ -32,26 +33,31 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     - PYTHON_VER: Python39-x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-    - PYTHON_VER: Python27
+    - TOXENV: py27
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python27-x64
+    - TOXENV: py36
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python36
+    - TOXENV: py37
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python36-x64
+    - TOXENV: py38
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python37
+    - TOXENV: py39
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python37-x64
+    - TOXENV: py27
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python38
+      platform: arm64
+    - TOXENV: py36
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python38-x64
+      platform: arm64
+    - TOXENV: py37
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python39
+      platform: arm64
+    - TOXENV: py38
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - PYTHON_VER: Python39-x64
+      platform: arm64
+    - TOXENV: py39
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+      platform: arm64
 
 for:
 -
@@ -59,7 +65,7 @@ for:
     only:
       - image: Ubuntu
   build_script:
-    - echo "Ubuntu build script $PYTHON_VER"
+    - echo "Ubuntu build script $PYTHON_VER" && cat /etc/lsb-release
 -
   matrix:
     only:
