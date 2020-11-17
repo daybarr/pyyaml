@@ -16,9 +16,6 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python27-x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python35
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python35-x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python36
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
