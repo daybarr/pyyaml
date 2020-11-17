@@ -63,15 +63,15 @@ for:
 -
   matrix:
     only:
-      - image: Ubuntu
+      - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+  install: pip install cython tox
   build_script:
     - echo "Ubuntu build script $PYTHON_VER" && cat /etc/lsb-release
 -
   matrix:
     only:
-      - image: Visual Studio 2015
-      - image: Visual Studio 2019
-  install: pip install cython tox
+      - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   build_script:
     - echo "Windows %APPVEYOR_BUILD_WORKER_IMAGE% %PYTHON_VER% build script"
       #build_script:
