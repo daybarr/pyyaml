@@ -71,6 +71,7 @@ for:
     only:
       - image: Visual Studio 2015
       - image: Visual Studio 2019
+  install: pip install cython tox
   build_script:
     - echo "Windows %APPVEYOR_BUILD_WORKER_IMAGE% %PYTHON_VER% build script"
       #build_script:
