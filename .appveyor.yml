@@ -34,7 +34,7 @@ for:
   matrix:
     only:
       - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    exclude:
+    except:
       - platform: x64
   install: pip install cython tox
   build_script:
@@ -44,7 +44,7 @@ for:
     only:
       - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-    exclude:
+    except:
       - platform: arm64
   build_script:
     - echo "Windows %APPVEYOR_BUILD_WORKER_IMAGE% %PYTHON_VER% build script"
