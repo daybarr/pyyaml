@@ -16,7 +16,6 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python27-x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python36
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python36-x64
@@ -33,12 +32,46 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     - PYTHON_VER: Python39-x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    - PYTHON_VER: Python27
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python27-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python36
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python36-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python37
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python37-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python38
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python38-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python39
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    - PYTHON_VER: Python39-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+
+for:
+-
+  matrix:
+    only:
+      - image: Ubuntu
+  build_script:
+    - echo "Ubuntu build script $PYTHON_VER"
+-
+  matrix:
+    only:
+      - image: Visual Studio 2015
+      - image: Visual Studio 2019
+  build_script:
+    - echo "Windows %APPVEYOR_BUILD_WORKER_IMAGE% %PYTHON_VER% build script"
+      #build_script:
+      #- ps: packaging\build\appveyor.ps1
 
 #init:
 #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-build_script:
-- ps: packaging\build\appveyor.ps1
 
 #on_finish:
 #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
