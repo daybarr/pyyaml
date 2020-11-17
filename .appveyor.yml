@@ -6,6 +6,11 @@ version: '{build}'
 #- 'C:\Python38-x64'
 build_script: echo "Default to Script mode"
 
+platform:
+  - arm64
+  - x86
+  - x64
+
 environment:
   libyaml_repo_url: https://github.com/yaml/libyaml.git
   libyaml_refspec: 0.2.2
@@ -17,61 +22,30 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python27-x64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python36
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python36-x64
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python37
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python37-x64
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python38
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    - PYTHON_VER: Python38-x64
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     - PYTHON_VER: Python39
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-    - PYTHON_VER: Python39-x64
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     - TOXENV: py27
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - TOXENV: py36
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - TOXENV: py37
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - TOXENV: py38
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     - TOXENV: py39
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-    - TOXENV: py27
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-      platform: arm64
-    - TOXENV: py36
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-      platform: arm64
-    - TOXENV: py37
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-      platform: arm64
-    - TOXENV: py38
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-      platform: arm64
-    - TOXENV: py39
-      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
-      platform: arm64
 
 for:
 -
   matrix:
     only:
       - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    exclude:
+      - platform: x64
   install: pip install cython tox
   build_script:
-    - echo "Ubuntu build script $PYTHON_VER" && cat /etc/lsb-release
+    - echo "Ubuntu build script $PYTHON_VER" && cat /etc/lsb-release && uname -ar
 -
   matrix:
     only:
       - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    exclude:
+      - platform: arm64
   build_script:
     - echo "Windows %APPVEYOR_BUILD_WORKER_IMAGE% %PYTHON_VER% build script"
       #build_script:
